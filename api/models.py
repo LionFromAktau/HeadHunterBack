@@ -16,7 +16,7 @@ class Vacancy(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     salary = models.FloatField()
-    company = models.ForeignKey(to=Company, on_delete=models.CASCADE, related_name='company')
+    company = models.ForeignKey(to=Company, on_delete=models.CASCADE, related_name='vacancy')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

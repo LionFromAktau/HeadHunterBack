@@ -1,12 +1,17 @@
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
+from django.db.models import Sum, Count
 from . import models, serializers, signals
 
 class CompanyViewV1(ModelViewSet):
     serializer_class = serializers.CompanySerializerV1
-    queryset = models.Company.objects.all()
+    queryset = models.Company.objects.prefetch_related('vacancy').annotate(
+        vacancies_number = Count('vacancy')
+    )
 
     @action(detail=True, methods=['get'])
     def vacancies(self, request, pk):
