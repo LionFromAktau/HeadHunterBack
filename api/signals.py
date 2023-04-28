@@ -10,7 +10,7 @@ def send_vacancy_noticification(sender, **kwargs):
     channel_layer = get_channel_layer()
     serializer = serializers.VacancySerializerV1(kwargs['instance'])
     async_to_sync(channel_layer.group_send)(
-        'submitted',
+        str(kwargs['instance'].company.id),
         {
             'type': 'send_noticification',
             **serializer.data,

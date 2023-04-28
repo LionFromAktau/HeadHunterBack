@@ -30,7 +30,7 @@ class VacancyViewV1(ModelViewSet):
     def submitted(self, request, pk):
         signals.vacancy_submitted.send(sender=models.Vacancy, instance=self.get_object(), user=request.user)
         return Response({
-            'message': 'vacancy submitted to the channel ws://127.0.0.1:8000/ws/vacancies/submitted/'
+            'message': f'vacancy submitted to {self.get_object().company.name}'
                          })
 
 
