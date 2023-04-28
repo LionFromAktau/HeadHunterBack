@@ -14,5 +14,7 @@ def send_vacancy_noticification(sender, **kwargs):
         {
             'type': 'send_noticification',
             **serializer.data,
+            'candidate FullName': f'{kwargs["user"].first_name} {kwargs["user"].last_name}',
+            'candidate email': f'{kwargs["user"].email}'
         }
     )
